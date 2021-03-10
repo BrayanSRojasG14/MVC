@@ -17,5 +17,9 @@
                 echo "ERROR: ". $e->getMessage();
             }
         }
+        public function connect()
+        {
+            return $this->conect;
+        }   
     }
 ?>

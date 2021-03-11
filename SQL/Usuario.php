@@ -31,6 +31,35 @@
             $request = $execute->fetchall(PDO::FETCH_ASSOC); //fetchall llama todos los registros
             return $request;
         }
+       
+        public function updateUser(int $id, string $nombre, int $telefono, string $email){
+            $this->strNombre = $nombre;
+            $this->intTelefono = $telefono;
+            $this->strEmail = $email;
+            $sql = "UPDATE usuario SET nombre=?, telefono=?, email=? WHERE id=$id ";
+            $update = $this->conexion->prepare($sql);
+            $arrData = array($this->strNombre,$this->intTelefono,$this->strEmail);
+            $resExecute = $update->execute($arrData);
+            return $resExecute;
+        }
+
+        public function getUser(int $id)
+        {
+            $sql = "SELECT * FROM usuario WHERE id = ?";
+            $arrWhere = array($id);
+            $query = $this->conexion->prepare($sql);
+            $query->execute($arrWhere);
+            $request = $query->fetch(PDO::FETCH_ASSOC);
+            return $request;
+        }
+        public function deluser(int $id)
+        {
+            $sql = "DELETE FROM usuario WHERE id = ?";
+            $arrWhere = array($id);
+            $delete = $this->conexion->prepare($sql);
+            $del = $delete->execute($arrWhere);
+            return $del;
+        }
     }
 
 ?>
